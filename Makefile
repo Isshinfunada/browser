@@ -47,5 +47,5 @@ hexdump : build
 	hexdump -C $(BIN_PATH_DEBUG)
 
 .PHONY : run
-run :
-	make -C ../../ run
+run : build
+	cd build/wasabi && DISPLAY=:0 make run WITH_APP_BIN="$$(realpath ../../saba/target/x86_64-unknown-none/release/saba)"
