@@ -22,7 +22,16 @@ impl Url {
         }
     }
 
+    fn is_http(&self) -> bool {
+        if self.url.contains("http://") {
+            return true;
+        }
+        false
+    }
+
     pub fn parse(&mut self) -> Result<Self, String> {
-        // 次で作る
+        if !self.is_http() {
+            return Err("Only http:// URLs are supported".to_string());
+        }
     }
 }
