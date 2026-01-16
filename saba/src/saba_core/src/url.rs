@@ -58,6 +58,21 @@ impl Url {
         }
     }
 
+    fn extract_path(&self) -> String {
+        let url_parts: Vec<&str> = self
+            .url
+            .trim_start_matches("http://")
+            .splitn(2, "/")
+            .collect();
+
+        if url_parts.len() < 2 {
+            return "".to_string();
+        }
+
+        let path_and_searchpart: Vec<&str> = url_parts[1].splitn(2, "?").collect();
+        path_and_searchpart[0].to_string()
+    }
+
     pub fn parse(&mut self) -> Result<Self, String> {
         if !self.is_http() {
             return Err("Only http:// URLs are supported".to_string());
