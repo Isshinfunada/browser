@@ -1,4 +1,4 @@
-workspace = { members = [ "src/net/wasabi","src/saba_core"] }
+workspace = { members = [ "net/wasabi","saba_core"] }
 [package]
 authors = ["Isshinfunada"]
 name = "saba"
@@ -16,6 +16,6 @@ path = "src/main.rs"
 required-features = ["wasabi"]
 
 [dependencies]
-saba_core = { path = "src/saba_core" }
-net_wasabi = { path = "src/net/wasabi", optional = true }
+saba_core = { path = "saba_core" }
+net_wasabi = { path = "net/wasabi", optional = true }
 noli = { git = "https://github.com/hikalium/wasabi.git", branch = "for_saba", optional = true }
