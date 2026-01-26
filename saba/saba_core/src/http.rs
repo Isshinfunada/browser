@@ -3,7 +3,6 @@ use crate::error::Error;
 use alloc::format;
 use alloc::string::String;
 use alloc::vec::Vec;
-use core::f32::consts::E;
 
 #[derive(Debug, Clone)]
 pub struct Header {
