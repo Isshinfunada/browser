@@ -20,3 +20,9 @@ pub struct HttpResponse {
     headers: Vec<Header>,
     body: String,
 }
+
+impl HttpResponse {
+    pub fn new(raw_response: String) -> Result<Self, Error> {
+        //後で
+    }
+}
