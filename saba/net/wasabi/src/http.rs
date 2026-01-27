@@ -1,7 +1,6 @@
 pub struct HttpClient {}
 
 extern crate alloc;
-use core::f32::consts::E;
 
 use alloc::format;
 use alloc::string::String;
@@ -21,7 +20,7 @@ impl HttpClient {
     pub fn get(&self, host: String, port: u16, path: String) -> Result<HttpResponse, Error> {
         let ips = match lookup_host(&"example.com") {
             Ok(ips) => ips,
-            Err(_) => {
+            Err(e) => {
                 return Err(Error::Network(format!(
                     "Failed to find IP addresses: {:#?}",
                     e
@@ -35,14 +34,14 @@ impl HttpClient {
             ));
         }
 
-        let socket_addr = SocketAddr::new(ips[0], port).into();
+        let socket_addr: SocketAddr = (ips[0], port).into();
 
         let mut stream = match TcpStream::connect(socket_addr) {
             Ok(stream) => stream,
             Err(_) => {
-                return Err(Error::Network((
+                return Err(Error::Network(
                     "Failed to connect to TCP stream".to_string(),
-                )));
+                ))
             }
         };
 
@@ -86,7 +85,7 @@ impl HttpClient {
 
         match core::str::from_utf8(&received) {
             Ok(response) => HttpResponse::new(response.to_string()),
-            Err(_) => Err(Error::Network(format!("Invalid recieived response: {}", e))),
+            Err(e) => Err(Error::Network(format!("Invalid recieived response: {}", e))),
         }
     }
 }
