@@ -40,4 +40,13 @@ if [ ! -f $MAKEFILE_PATH ]; then
 fi
 
 make build
-$OS_PATH/scripts/run_with_app.sh ./target/x86_64-unknown-none/release/$APP_NAME
+
+# macOSの場合はCocoaディスプレイを使用
+if [[ "$(uname)" == "Darwin" ]]; then
+  make -C $OS_PATH run \
+    WITH_APP_BIN="$HOME_PATH/saba/target/x86_64-unknown-none/release/$APP_NAME" \
+    DISPLAY=:0 \
+    MORE_QEMU_FLAGS="-display cocoa"
+else
+  $OS_PATH/scripts/run_with_app.sh ./target/x86_64-unknown-none/release/$APP_NAME
+fi
