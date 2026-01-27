@@ -18,7 +18,7 @@ impl HttpClient {
     }
 
     pub fn get(&self, host: String, port: u16, path: String) -> Result<HttpResponse, Error> {
-        let ips = match lookup_host(&"example.com") {
+        let ips = match lookup_host(&host) {
             Ok(ips) => ips,
             Err(e) => {
                 return Err(Error::Network(format!(
