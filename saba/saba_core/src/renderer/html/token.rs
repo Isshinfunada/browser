@@ -450,6 +450,19 @@ impl Iterator for HtmlTokenizer {
                     }
                 }
 
+                State::ScriptData => {
+                    if c == '<' {
+                        self.state = State::ScriptDataLessThanSign;
+                        continue;
+                    }
+
+                    if self.is_eof() {
+                        return Some(HtmlToken::Eof);
+                    }
+
+                    return Some(HtmlToken::Char(c));
+                }
+
                 _ => {}
             }
         }
